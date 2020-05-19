@@ -1,0 +1,29 @@
+
+<style>
+	
+	:host {
+		display:  block;
+		overflow: hidden;
+	}
+
+	#slide {
+		display:  	flex;
+		transition: transform 0.5s var(--custom-ease);
+	}
+
+	#slot::slotted(*) {
+		min-width: 100%;
+	}
+
+</style>
+
+
+<div id="slide"
+		 on-animationend="__done"
+		 on-animationcancel="__done">
+
+	<slot id="slot"
+				on-slotchange="__slotChanged">
+	</slot>
+	
+</div>
