@@ -1,0 +1,22 @@
+{
+  "name": "@longlost/tab-pages",
+  "version": "1.0.0",
+  "description": "Animated page transitions, best used with <paper-tabs> or similar.",
+  "main": "tab-pages.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/longlost/tab-pages.git"
+  },
+  "author": "Longlost Dev longlostdev@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/longlost/tab-pages/issues"
+  },
+  "homepage": "https://github.com/longlost/tab-pages#readme",
+  "dependencies": {
+    "@longlost/app-element": "^2.0.0"
+  }
+}
