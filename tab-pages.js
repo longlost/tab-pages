@@ -2,7 +2,7 @@
 /**
   * `tab-pages`
   *
-  * 	Animated page transitions, best used with <paper-tabs> or similar.
+  *   Animated page transitions, best used with <paper-tabs> or similar.
   * 
   *
   * @customElement
@@ -12,8 +12,9 @@
   *
   **/
 
-import {AppElement, html} from '@longlost/app-element/app-element.js';
-import htmlString 				from './tab-pages.html';
+import {AppElement, html}           from '@longlost/app-element/app-element.js';
+import {listen, schedule, unlisten} from '@longlost/utils/utils.js';
+import htmlString                   from './tab-pages.html';
 
 
 class TabPages extends AppElement {
@@ -27,14 +28,16 @@ class TabPages extends AppElement {
   static get properties() {
     return {
 
-    	attrForSelected: {
-    		type: String,
-    		value: 'page'
-    	},
+      attrForSelected: {
+        type: String,
+        value: 'page'
+      },
 
       selected: String,
 
       _measurements: Array,
+
+      _resizeListenerKey: Object,
 
       _start: Number
 
@@ -43,40 +46,56 @@ class TabPages extends AppElement {
 
 
   static get observers() {
-  	return [
-  		'__selectedChanged(selected, _measurements, _start)'
-  	];
+    return [
+      '__selectedChanged(selected, _measurements, _start)'
+    ];
+  }
+
+
+  connectedCallback() {
+    super.connectedCallback();
+
+    this._resizeListenerKey = 
+      listen(window, 'resize', this.__measure.bind(this));
+  }
+
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+
+    unlisten(this._resizeListenerKey);
   }
 
 
   __selectedChanged(selected, measurements, start) {
-  	if (!selected || !measurements) { return; }
+    if (!selected || !measurements) { return; }
 
-  	const {left} = measurements[selected];
-  	const x 		 = left - start;
+    const {left} = measurements[selected];
+    const x      = left - start;
 
-  	this.$.slide.style['transform'] = `translateX(${-x}px)`;
+    this.$.slide.style['transform'] = `translateX(${-x}px)`;
   }
 
 
   __done() {
-  	this.fire('tab-pages-page-changed', {value: this.selected});
+    this.fire('tab-pages-page-changed', {value: this.selected});
   }
 
 
-  __slotChanged() {
-  	const nodes = this.slotNodes('#slot');
+  async __measure() {
+    await schedule();
 
-  	this._start = nodes[0].getBoundingClientRect().left;
+    const nodes = this.slotNodes('#slot');
 
-  	this._measurements = nodes.reduce((accum, node) => {
+    this._start = nodes[0].getBoundingClientRect().left;
 
-  		const page = node.getAttribute(this.attrForSelected);
+    this._measurements = nodes.reduce((accum, node) => {
 
-  		accum[page] = node.getBoundingClientRect();
+      const page  = node.getAttribute(this.attrForSelected);
+      accum[page] = node.getBoundingClientRect();
 
-  		return accum;  			
-  	}, {});
+      return accum;       
+    }, {});
   }
 
 }

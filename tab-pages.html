@@ -2,8 +2,7 @@
 <style>
 	
 	:host {
-		display:  block;
-		overflow: hidden;
+		display: block;
 	}
 
 	#slide {
@@ -19,11 +18,11 @@
 
 
 <div id="slide"
-		 on-animationend="__done"
-		 on-animationcancel="__done">
+		 on-transitionend="__done"
+		 on-transitioncancel="__done">
 
 	<slot id="slot"
-				on-slotchange="__slotChanged">
+				on-slotchange="__measure">
 	</slot>
 	
 </div>
