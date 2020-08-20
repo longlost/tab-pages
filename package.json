@@ -1,6 +1,6 @@
 {
   "name": "@longlost/tab-pages",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Animated page transitions, best used with <paper-tabs> or similar.",
   "main": "tab-pages.js",
   "scripts": {
@@ -18,6 +18,6 @@
   "homepage": "https://github.com/longlost/tab-pages#readme",
   "dependencies": {
     "@longlost/app-element": "^2.0.0",
-    "@longlost/utils": "^1.4.0"
+    "@longlost/utils": "^1.5.1"
   }
 }
