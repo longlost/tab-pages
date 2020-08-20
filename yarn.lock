@@ -22,6 +22,13 @@
   dependencies:
     "@longlost/lambda" "^2.2.0"
 
+"@longlost/utils@^1.5.1":
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/@longlost/utils/-/utils-1.5.1.tgz#01bb49e6a2d12dd56f941f51d2cb67a3e5e2691f"
+  integrity sha512-4VE0pQ04oNlKK1k1bYqWTMm4KMpUeiHRUcWGvwEdEOY7zlK7BnPacpULNYFdW21M22gAG4sNWCRNvpNPuHaoQw==
+  dependencies:
+    "@longlost/lambda" "^2.2.0"
+
 "@polymer/polymer@^3.4.1":
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/@polymer/polymer/-/polymer-3.4.1.tgz#333bef25711f8411bb5624fb3eba8212ef8bee96"
