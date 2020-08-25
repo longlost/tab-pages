@@ -3,26 +3,29 @@
 	
 	:host {
 		display:  block;
-		overflow: hidden;
+		position: relative;
+
+		/* 
+			Unset this if one of the slotted children or 
+			descendants have a position:sticky setting. 
+		*/
+		overflow: hidden; 
 	}
 
-	#slide {
-		display:  	flex;
+	.entry {
 		transition: transform 0.5s var(--custom-ease);
 	}
 
 	#slot::slotted(*) {
-		min-width: 100%;
+		position: absolute;
+		top: 			0px;
+		left: 		0px;
+		width:  	100%;
 	}
 
 </style>
 
 
-<div id="slide"
-		 on-transitionend="__done">
-
-	<slot id="slot"
-				on-slotchange="__measure">
-	</slot>
-	
-</div>
+<slot id="slot"
+			on-slotchange="__setup">
+</slot>
