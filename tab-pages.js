@@ -64,6 +64,22 @@ class TabPages extends AppElement {
   }
 
 
+  connectedCallback() {
+    super.connectedCallback();
+
+    this.__resize = this.__resize.bind(this);
+
+    window.addEventListener('resize', this.__resize);
+  }
+
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+
+    window.removeEventListener('resize', this.__resize);
+  }
+
+
   async __selectedChanged(selected, nodes) {
     if (!selected || !nodes) { return; }
 
@@ -133,17 +149,23 @@ class TabPages extends AppElement {
     this.fire('tab-pages-page-changed', {value: selected});
   }
 
-
-  async __setup() {
+  // Set height of parent to be at least as 
+  // tall as tallest slotted child node.
+  async __resize() {
     await schedule();
 
-    const nodes = this.slotNodes('#slot');
-
-    // Set height of parent to be at least as tall as tallest slotted child node.
+    const nodes   = this.slotNodes('#slot');
     const heights = nodes.map(node => node.getBoundingClientRect().height);
     const tallest = Math.max(...heights);
 
     this.style['min-height'] = `${tallest}px`;
+
+    return nodes;
+  }
+
+
+  async __setup() {
+    const nodes = await this.__resize();
 
     const topIndex = this._current ? 
       nodes.findIndex(node => 

@@ -22,10 +22,10 @@
   dependencies:
     "@longlost/lambda" "^2.2.0"
 
-"@longlost/utils@^1.5.2":
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/@longlost/utils/-/utils-1.5.2.tgz#0b6cf7cb8d14ed72dc283c8c67d1d13dbea1eb3c"
-  integrity sha512-3b0dpEh2/SDkmR1vPMmwAoLdxirMsnZ2b4+vPL+SSvArQ82e0jvmumYenxQTuoPKke5uEDpuXznuiW7WxaurAg==
+"@longlost/utils@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@longlost/utils/-/utils-2.0.0.tgz#b99c2bb7a93a2b58073451130538b4c99c3b8656"
+  integrity sha512-aXztDGZ2tzIOzy19nYCsWMyZEoXTmb6gxanpqqcFi5WQ3yVGBT7pBubWHg0gTfMdC3zthd7tk2VfQIfgXsZ6kA==
   dependencies:
     "@longlost/lambda" "^2.2.0"
 
