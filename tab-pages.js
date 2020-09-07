@@ -105,10 +105,12 @@ class TabPages extends AppElement {
 
     const direction  = index - previousIndex;
     const x          = direction > 0 ? 100 : -100;
-    const transition = `transform ${this.duration}ms var(--custom-ease)`;
+    const transition = `transform ${this.duration}ms var(--custom-ease), 
+                        opacity   ${this.duration}ms ease-out`;
 
     previousNode.style['transition'] = transition;
     node.style['transform']          = `translateX(${x}%)`;
+    node.style['opacity']            = '1';
     node.style['z-index']            = '1';
 
     this._current = selected;
@@ -129,6 +131,7 @@ class TabPages extends AppElement {
     node.addEventListener('transitionend', resolver);
 
     previousNode.style['transform'] = `translateX(${x / -8}%)`;
+    previousNode.style['opacity']   = '0';
     node.style['transition']        = transition;
     node.style['transform']         = 'unset';
 
@@ -175,9 +178,11 @@ class TabPages extends AppElement {
     // Stack all nodes behind the one that is currently selected.
     nodes.forEach((node, index) => {
       if (index === topIndex) {
+        node.style['opacity'] = '1';
         node.style['z-index'] = '0';
       }
       else {
+        node.style['opacity'] = '0';
         node.style['z-index'] = '-1';
       }
     });
