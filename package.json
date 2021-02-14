@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/longlost/tab-pages#readme",
   "dependencies": {
-    "@longlost/app-core": "^1.0.0"
+    "@longlost/app-core": "^2.2.1"
   }
 }

@@ -18,6 +18,7 @@ import htmlString         from './tab-pages.html';
 
 
 class TabPages extends AppElement {
+  
   static get is() { return 'tab-pages'; }
 
   static get template() {
@@ -58,6 +59,7 @@ class TabPages extends AppElement {
 
 
   constructor() {
+
     super();
 
     this._current = this.selected;
@@ -65,6 +67,7 @@ class TabPages extends AppElement {
 
 
   connectedCallback() {
+
     super.connectedCallback();
 
     this.__resize = this.__resize.bind(this);
@@ -74,6 +77,7 @@ class TabPages extends AppElement {
 
 
   disconnectedCallback() {
+
     super.disconnectedCallback();
 
     window.removeEventListener('resize', this.__resize);
@@ -81,6 +85,7 @@ class TabPages extends AppElement {
 
 
   async __selectedChanged(selected, nodes) {
+
     if (!selected || !nodes) { return; }
 
     if (!this._current) {
@@ -155,6 +160,9 @@ class TabPages extends AppElement {
   // Set height of parent to be at least as 
   // tall as tallest slotted child node.
   async __resize() {
+
+    this.style['min-height'] = 'unset';
+
     await schedule();
 
     const nodes   = this.slotNodes('#slot');
@@ -168,6 +176,7 @@ class TabPages extends AppElement {
 
 
   async __setup() {
+
     const nodes = await this.__resize();
 
     const topIndex = this._current ? 
