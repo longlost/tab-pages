@@ -45,7 +45,9 @@ class TabPages extends AppElement {
 
       _current: String,
 
-      _nodes: Object
+      _nodes: Object,
+
+      _resizeObserver: Object
 
     };
   }
@@ -72,7 +74,9 @@ class TabPages extends AppElement {
 
     this.__resize = this.__resize.bind(this);
 
-    window.addEventListener('resize', this.__resize);
+    this._resizeObserver = new window.ResizeObserver(this.__resize);
+
+    this._resizeObserver.observe(this);
   }
 
 
@@ -80,7 +84,8 @@ class TabPages extends AppElement {
 
     super.disconnectedCallback();
 
-    window.removeEventListener('resize', this.__resize);
+    this._resizeObserver?.disconnect();
+    this._resizeObserver = undefined;
   }
 
 
@@ -161,17 +166,26 @@ class TabPages extends AppElement {
   // tall as tallest slotted child node.
   async __resize() {
 
-    this.style['min-height'] = 'unset';
+    try {
 
-    await schedule();
+      this.throttle();
 
-    const nodes   = this.slotNodes('#slot');
-    const heights = nodes.map(node => node.getBoundingClientRect().height);
-    const tallest = Math.max(...heights);
+      this.style['min-height'] = 'unset';
 
-    this.style['min-height'] = `${tallest}px`;
+      await schedule();
 
-    return nodes;
+      const nodes   = this.slotNodes('#slot');
+      const heights = nodes.map(node => node.getBoundingClientRect().height);
+      const tallest = Math.max(...heights);
+
+      this.style['min-height'] = `${tallest}px`;
+
+      return nodes;
+    }
+    catch (error) {
+      if (error === 'throttled') { return; }
+      console.error(error);
+    }
   }
 
 
