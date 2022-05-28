@@ -12,9 +12,9 @@
   *
   **/
 
-import {AppElement, html} from '@longlost/app-core/app-element.js';
-import {schedule}         from '@longlost/app-core/utils.js';
-import htmlString         from './tab-pages.html';
+import {AppElement} from '@longlost/app-core/app-element.js';
+import {schedule}   from '@longlost/app-core/utils.js';
+import template     from './tab-pages.html';
 
 
 class TabPages extends AppElement {
@@ -22,7 +22,7 @@ class TabPages extends AppElement {
   static get is() { return 'tab-pages'; }
 
   static get template() {
-    return html([htmlString]);
+    return template;
   }
 
 
@@ -168,7 +168,9 @@ class TabPages extends AppElement {
 
     try {
 
-      this.throttle();
+      // Not awaiting throttle, as it simply throws
+      // errors for late coming calls to this method.
+      this.throttle(); 
 
       this.style['min-height'] = 'unset';
 
@@ -183,7 +185,7 @@ class TabPages extends AppElement {
       return nodes;
     }
     catch (error) {
-      if (error === 'throttled') { return; }
+      if (error === 'throttled') { return; } // Ignore throttled invocations.
       console.error(error);
     }
   }
